@@ -1,18 +1,12 @@
-"use client";
 import React from "react";
 
-export default function Topbar({ userName, onLogout }: { userName?: string, onLogout: ()=>void }) {
+export default function Topbar({ userName, onLogout }: { userName?: string; onLogout: () => void }) {
   return (
-    <div className="flex items-center justify-between mb-6">
-      <div>
-        <h1 className="h4 text-var(--color-primary)">Dashboard</h1>
-        <p className="text-text11 text-var(--color-gray-text)">Resumen de actividad</p>
-      </div>
-
-      <div className="flex items-center gap-4">
-        <div className="text-text9">{userName}</div>
-        <button onClick={onLogout} className="btn-amber px-4 py-2 rounded-xl">Cerrar sesión</button>
-      </div>
+    <div className="flex justify-between items-center mb-6 p-4 bg-white shadow rounded-2xl">
+      <h1 className="text-xl font-bold">Hola, {userName || "Usuario"}</h1>
+      <button onClick={onLogout} className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">
+        Logout
+      </button>
     </div>
   );
 }

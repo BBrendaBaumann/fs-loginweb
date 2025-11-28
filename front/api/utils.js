@@ -1,5 +1,5 @@
-import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
 
 const SECRET = process.env.JWT_SECRET || "supersecretkey";
 
@@ -15,12 +15,19 @@ export function verifyToken(token) {
   return jwt.verify(token, SECRET);
 }
 
+// ⚠️ Asegúrate de que los usuarios coincidan con tu seed de front/db.json
 export const mockUsers = [
   {
-    id: "1",
-    email: "admin@correo.com",
-    name: "Admin",
-    passwordHash: bcrypt.hashSync("123456", 10)
+    id: "u1",
+    email: "user1@example.com",
+    name: "User One",
+    passwordHash: bcrypt.hashSync("Password1!", 10),
+  },
+  {
+    id: "u2",
+    email: "user2@example.com",
+    name: "User Two",
+    passwordHash: bcrypt.hashSync("Password2!", 10),
   }
 ];
 
