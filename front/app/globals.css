@@ -1,0 +1,319 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}@import "tailwindcss";
+
+:root {
+  --color-primary: #4A3324;
+  --color-primary-hover: #5B4233;
+}
+:where(a,button,input,select,textarea,[role="button"],.clickable) {
+  cursor: pointer;
+}
+
+.custom-amber-btn {
+  border-color: rgb(120 53 15) !important; 
+  color: rgb(120 53 15) !important;
+  background-color: rgb(120 53 15 / 0.2) !important;
+}
+
+.btn-amber {
+  @apply w-full h-14 text-lg font-medium border border-amber-900 text-amber-900 bg-amber-900/10 
+         hover:bg-amber-900/20 transition-all rounded-xl;
+}
+
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.6s ease forwards;
+}
+
+
+@theme inline {
+    --color-primary: #4A3324;
+    --color-primary-hover: #5B4233;
+    --color-primary-intermedio: #B6877F;
+    --color-primary-suave: #D9B5AB;
+    --color-fondo-claro: #FFF4EE;
+    --color-fondo-suave: #EEDDD3;
+    --color-fondo-suave-hover: #B6877F;
+    --color-secundario: #A4B29C;
+    --color-gray-text: #5B5465;
+    --font-sans: var(--font-montserrat);
+    --text-h1: 56px;
+    --text-h1--line-height: 61.6px;
+    --text-h1--font-weight: 700;
+    --text-h2: 48px;
+    --text-h2--line-height: 52.8px;
+    --text-h2--font-weight: 700;
+    --text-h3: 40px;
+    --text-h3--line-height: 44px;
+    --text-h3--font-weight: 700;
+    --text-h4: 32px;
+    --text-h4--line-height: 35.2px;
+    --text-h4--font-weight: 700;
+    --text-h5: 24px;
+    --text-h5--line-height: 26.4px;
+    --text-h5--font-weight: 700;
+    --text-h6: 24px;
+    --text-h6--line-height: 26.4px;
+    --text-h6--font-weight: 500;
+    --text-h7: 24px;
+    --text-h7--line-height: 26.4px;
+    --text-h7--font-weight: 400;
+    --text-text1: 20px;
+    --text-text1--line-height: 28px;
+    --text-text1--font-weight: 700;
+    --text-text2: 20px;
+    --text-text2--line-height: 28px;
+    --text-text2--font-weight: 500;
+    --text-text3: 20px;
+    --text-text3--line-height: 28px;
+    --text-text3--font-weight: 400;
+    --text-text4: 18px;
+    --text-text4--line-height: 25.2px;
+    --text-text4--font-weight: 700;
+    --text-text5: 18px;
+    --text-text5--line-height: 25.2px;
+    --text-text5--font-weight: 500;
+    --text-text6: 18px;
+    --text-text6--line-height: 25.2px;
+    --text-text6--font-weight: 400;
+    --text-text7: 16px;
+    --text-text7--line-height: 22.4px;
+    --text-text7--font-weight: 700;
+    --text-text8: 16px;
+    --text-text8--line-height: 22.4px;
+    --text-text8--font-weight: 500;
+    --text-text9: 16px;
+    --text-text9--line-height: 22.4px;
+    --text-text9--font-weight: 400;
+    --text-text10: 14px;
+    --text-text10--line-height: 19.6px;
+    --text-text10--font-weight: 700;
+    --text-text11: 14px;
+    --text-text11--line-height: 19.6px;
+    --text-text11--font-weight: 500;
+    --text-text12: 14px;
+    --text-text12--line-height: 19.6px;
+    --text-text12--font-weight: 400;
+    --text-text13: 12px;
+    --text-text13--line-height: 16.8px;
+    --text-text13--font-weight: 700;
+    --text-text14: 12px;
+    --text-text14--line-height: 16.8px;
+    --text-text14--font-weight: 500;
+    --text-text15: 12px;
+    --text-text15--line-height: 16.8px;
+    --text-text15--font-weight: 400;
+    --text-text16: 10px;
+    --text-text16--line-height: 14px;
+    --text-text16--font-weight: 700;
+    --text-text17: 10px;
+    --text-text17--line-height: 14px;
+    --text-text17--font-weight: 500;
+    --text-text18: 10px;
+    --text-text18--line-height: 14px;
+    --text-text18--font-weight: 400;
+}
+
+body {
+    @apply font-sans;
+}
+
+a {
+    color: var(--color-primary);
+    text-decoration: none;
+
+    &:hover {
+        color: var(--color-primary-intermedio);
+        text-decoration: none;
+    }
+}
+
+.ant-card {
+    box-shadow: 0 0 9px 1px #a4b29cc7 !important;
+}
+
+.ant-table {
+    box-shadow: 0 0 9px 1px #C4D8FF !important;
+}
+
+.gift-event-card {
+    box-shadow: 0 0 9px 1px #5B4233 !important;
+}
+
+.h1 {
+    font-size: var(--text-h1);
+    line-height: var(--text-h1--line-height);
+    font-weight: var(--text-h1--font-weight);
+}
+
+.h2 {
+    font-size: var(--text-h2);
+    line-height: var(--text-h2--line-height);
+    font-weight: var(--text-h2--font-weight);
+}
+
+.h3 {
+    font-size: var(--text-h3);
+    line-height: var(--text-h3--line-height);
+    font-weight: var(--text-h3--font-weight);
+}
+
+.h4 {
+    font-size: var(--text-h4);
+    line-height: var(--text-h4--line-height);
+    font-weight: var(--text-h4--font-weight);
+}
+
+.h5 {
+    font-size: var(--text-h5);
+    line-height: var(--text-h5--line-height);
+    font-weight: var(--text-h5--font-weight);
+}
+
+.h6 {
+    font-size: var(--text-h6);
+    line-height: var(--text-h6--line-height);
+    font-weight: var(--text-h6--font-weight);
+}
+
+.h7 {
+    font-size: var(--text-h7);
+    line-height: var(--text-h7--line-height);
+    font-weight: var(--text-h7--font-weight);
+}
+
+.text1 {
+    font-size: var(--text-text1);
+    line-height: var(--text-text1--line-height);
+    font-weight: var(--text-text1--font-weight);
+}
+
+.text2 {
+    font-size: var(--text-text2);
+    line-height: var(--text-text2--line-height);
+    font-weight: var(--text-text2--font-weight);
+}
+
+.text3 {
+    font-size: var(--text-text3);
+    line-height: var(--text-text3--line-height);
+    font-weight: var(--text-text3--font-weight);
+}
+
+.text4 {
+    font-size: var(--text-text4);
+    line-height: var(--text-text4--line-height);
+    font-weight: var(--text-text4--font-weight);
+}
+
+.text5 {
+    font-size: var(--text-text5);
+    line-height: var(--text-text5--line-height);
+    font-weight: var(--text-text5--font-weight);
+}
+
+.text6 {
+    font-size: var(--text-text6);
+    line-height: var(--text-text6--line-height);
+    font-weight: var(--text-text6--font-weight);
+}
+
+.text7 {
+    font-size: var(--text-text7);
+    line-height: var(--text-text7--line-height);
+    font-weight: var(--text-text7--font-weight);
+}
+
+.text8 {
+    font-size: var(--text-text8);
+    line-height: var(--text-text8--line-height);
+    font-weight: var(--text-text8--font-weight);
+}
+
+.text9 {
+    font-size: var(--text-text9);
+    line-height: var(--text-text9--line-height);
+    font-weight: var(--text-text9--font-weight);
+}
+
+.text10 {
+    font-size: var(--text-text10);
+    line-height: var(--text-text10--line-height);
+    font-weight: var(--text-text10--font-weight);
+}
+
+.text11 {
+    font-size: var(--text-text11);
+    line-height: var(--text-text11--line-height);
+    font-weight: var(--text-text11--font-weight);
+}
+
+.text12 {
+    font-size: var(--text-text12);
+    line-height: var(--text-text12--line-height);
+    font-weight: var(--text-text12--font-weight);
+}
+
+.text13 {
+    font-size: var(--text-text13);
+    line-height: var(--text-text13--line-height);
+    font-weight: var(--text-text13--font-weight);
+}
+
+.text14 {
+    font-size: var(--text-text14);
+    line-height: var(--text-text14--line-height);
+    font-weight: var(--text-text14--font-weight);
+}
+
+.text15 {
+    font-size: var(--text-text15);
+    line-height: var(--text-text15--line-height);
+    font-weight: var(--text-text15--font-weight);
+}
+
+.text16 {
+    font-size: var(--text-text16);
+    line-height: var(--text-text16--line-height);
+    font-weight: var(--text-text16--font-weight);
+}
+
+.text17 {
+    font-size: var(--text-text17);
+    line-height: var(--text-text17--line-height);
+    font-weight: var(--text-text17--font-weight);
+}
+
+.text18 {
+    font-size: var(--text-text18);
+    line-height: var(--text-text18--line-height);
+    font-weight: var(--text-text18--font-weight);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}

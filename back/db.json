@@ -1,0 +1,66 @@
+{
+  "users": [
+    {
+      "id": "u1",
+      "email": "user1@example.com",
+      "passwordHash": "$2b$10$yTWf.paSvXEN4xbcSWFqMui4esOU9rKY1DaWG1UsEx9SGm6iZ/Bvm",
+      "name": "User One"
+    },
+    {
+      "id": "u2",
+      "email": "user2@example.com",
+      "passwordHash": "$2b$10$RHNfzJun0N9uyjr0iMbkTuCLewDh7l84Z3YXk9.eDSiKcIRZFAaQe",
+      "name": "User Two"
+    },
+    {
+      "id": "u1764258599697",
+      "email": "new@example.com",
+      "passwordHash": "$2b$10$wwJyAeCN22WLpqGE3/FocuaaDPlGtwgFrccaRkTTZ773Sny4QNyES",
+      "name": "New"
+    }
+  ],
+  "loginRecords": [
+    {
+      "id": "1764189427968",
+      "userEmail": "user1@example.com",
+      "passwordHash": "$2b$10$yTWf.paSvXEN4xbcSWFqMui4esOU9rKY1DaWG1UsEx9SGm6iZ/Bvm",
+      "loggedAt": "26/11/2025 - 17:37"
+    },
+    {
+      "id": "1764189562037",
+      "userEmail": "user1@example.com",
+      "passwordHash": "$2b$10$yTWf.paSvXEN4xbcSWFqMui4esOU9rKY1DaWG1UsEx9SGm6iZ/Bvm",
+      "loggedAt": "26/11/2025 - 17:39"
+    },
+    {
+      "id": "1764189577989",
+      "userEmail": "user1@example.com",
+      "passwordHash": "$2b$10$yTWf.paSvXEN4xbcSWFqMui4esOU9rKY1DaWG1UsEx9SGm6iZ/Bvm",
+      "loggedAt": "26/11/2025 - 17:39"
+    },
+    {
+      "id": "1764189688190",
+      "userEmail": "user1@example.com",
+      "passwordHash": "$2b$10$yTWf.paSvXEN4xbcSWFqMui4esOU9rKY1DaWG1UsEx9SGm6iZ/Bvm",
+      "loggedAt": "26/11/2025 - 17:41"
+    },
+    {
+      "id": "1764190401705",
+      "userEmail": "user1@example.com",
+      "passwordHash": "$2b$10$yTWf.paSvXEN4xbcSWFqMui4esOU9rKY1DaWG1UsEx9SGm6iZ/Bvm",
+      "loggedAt": "26/11/2025 - 17:53"
+    },
+    {
+      "id": "1764258397347",
+      "userEmail": "user1@example.com",
+      "passwordHash": "$2b$10$yTWf.paSvXEN4xbcSWFqMui4esOU9rKY1DaWG1UsEx9SGm6iZ/Bvm",
+      "loggedAt": "27/11/2025 - 12:46"
+    },
+    {
+      "id": "1764279804162",
+      "userEmail": "user1@example.com",
+      "passwordHash": "$2b$10$yTWf.paSvXEN4xbcSWFqMui4esOU9rKY1DaWG1UsEx9SGm6iZ/Bvm",
+      "loggedAt": "27/11/2025 - 18:43"
+    }
+  ]
+}
