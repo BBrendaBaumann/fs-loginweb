@@ -2,6 +2,9 @@ import { NextRequest, NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
+console.log("ENV MAKE_WEBHOOK_URL:", process.env.MAKE_WEBHOOK_URL);
+console.log("ENV GS_SHEET_ID:", process.env.GS_SHEET_ID);
+
 const SECRET = process.env.JWT_SECRET || "supersecret";
 
 // Usuarios hardcodeados (como pedía la prueba)
@@ -43,15 +46,20 @@ export async function POST(req: NextRequest) {
 
   // 👉 Enviar a Make
   try {
-    await fetch(process.env.MAKE_WEBHOOK_URL!, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        email: user.email,
-        passwordHash: user.passwordHash,
-        loggedAt: new Date().toISOString(),
-      }),
-    });
+    const payload = {
+    email: user.email,
+    passwordHash: user.passwordHash,
+    loggedAt: new Date().toISOString()
+  };
+
+  const webhook = process.env.MAKE_WEBHOOK_URL;
+  if (!webhook) console.error("MAKE_WEBHOOK_URL missing");
+
+    await fetch(webhook!, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload),
+  });
   } catch (err) {
     console.error("Error enviando a Make:", err);
   }
