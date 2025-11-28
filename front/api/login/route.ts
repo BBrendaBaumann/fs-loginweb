@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
 import { db, initDb } from "../db";
 import { appendToSheet } from "../googleSheets";
+import { formatLoginDateISO } from "../../lib/date"; 
 
 export async function POST(req: Request) {
   try {
@@ -15,8 +16,7 @@ export async function POST(req: Request) {
     const match = await bcrypt.compare(password, user.passwordHash);
     if (!match) return NextResponse.json({ error: "Contraseña incorrecta" }, { status: 401 });
 
-    // Guardar login en db.json
-    const timestamp = new Date().toISOString();
+    const timestamp = formatLoginDateISO(new Date()); 
     db.data!.loginRecords.push({
       id: Date.now().toString(),
       userEmail: user.email,
@@ -25,7 +25,6 @@ export async function POST(req: Request) {
     });
     await db.write();
 
-    // Enviar a Google Sheets vía webhook o directamente con credenciales
     if (process.env.GOOGLE_SPREADSHEET_ID && process.env.GOOGLE_CREDENTIALS) {
       const creds = JSON.parse(process.env.GOOGLE_CREDENTIALS);
       await appendToSheet(process.env.GOOGLE_SPREADSHEET_ID, creds, [
@@ -36,8 +35,9 @@ export async function POST(req: Request) {
     }
 
     return NextResponse.json({ ok: true, user: { email: user.email, name: user.name } });
+
   } catch (err: any) {
-    console.error(err);
+    console.error("Login route error:", err);
     return NextResponse.json({ error: "Error interno", details: err.message }, { status: 500 });
   }
 }

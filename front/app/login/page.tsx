@@ -1,7 +1,6 @@
 "use client";
 import { useState } from "react";
 import LoginLayout from "../../components/LoginLayout";
-import bcrypt from "bcryptjs"; // para hash antes de enviar
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -15,13 +14,10 @@ export default function LoginPage() {
     setError("");
 
     try {
-      // Hash de la contraseña antes de enviarla
-      const hashedPassword = await bcrypt.hash(password, 10);
-
       const res = await fetch("/api/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password: hashedPassword })
+        body: JSON.stringify({ email, password }) // ENVIAMOS PASSWORD EN TEXTO
       });
 
       const data = await res.json();
@@ -32,9 +28,9 @@ export default function LoginPage() {
       }
 
       // Login exitoso
-      localStorage.setItem("token", "demo-token"); // si quieres JWT en el futuro
-      alert("Login correcto!");
+      alert(`¡Bienvenido, ${data.user.name ?? data.user.email}!`);
       window.location.href = "/dashboard";
+
     } catch (err) {
       console.error(err);
       setError("Error de conexión con el servidor.");
