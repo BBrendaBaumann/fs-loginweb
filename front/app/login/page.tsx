@@ -1,7 +1,7 @@
 "use client";
-
 import { useState } from "react";
 import LoginLayout from "../../components/LoginLayout";
+import bcrypt from "bcryptjs"; // para hash antes de enviar
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -10,107 +10,64 @@ export default function LoginPage() {
   const [error, setError] = useState("");
 
   const handleSubmit = async (e: React.FormEvent) => {
-  e.preventDefault();
-  setLoading(true);
-  setError("");
+    e.preventDefault();
+    setLoading(true);
+    setError("");
 
-  try {
-    const res = await fetch("/api/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, password }),
-    });
+    try {
+      // Hash de la contraseña antes de enviarla
+      const hashedPassword = await bcrypt.hash(password, 10);
 
-    const data = await res.json();
+      const res = await fetch("/api/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password: hashedPassword })
+      });
 
-    if (!res.ok) {
-      setError(data.message || "Credenciales inválidas");
+      const data = await res.json();
+      if (!res.ok) {
+        setError(data.error || "Credenciales inválidas");
+        setLoading(false);
+        return;
+      }
+
+      // Login exitoso
+      localStorage.setItem("token", "demo-token"); // si quieres JWT en el futuro
+      alert("Login correcto!");
+      window.location.href = "/dashboard";
+    } catch (err) {
+      console.error(err);
+      setError("Error de conexión con el servidor.");
+    } finally {
       setLoading(false);
-      return;
     }
-
-    await fetch("/api/set-token", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ token: data.token }),
-    });
-
-    await fetch("/api/index", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        action: "logLogin",
-        payload: {
-          email,
-          name: data?.user?.name ?? "",
-          timestamp: new Date().toISOString()
-        }
-      })
-    });
-
-    await fetch("/api/index", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        action: "sendEmail",
-        payload: {
-          to: email,
-          subject: "Bienvenido",
-          message: `Hola ${data?.user?.name ?? ""}, tu login se registró correctamente.`
-        }
-      })
-    });
-
-    alert("Login correcto!");
-    window.location.href = "/dashboard";
-
-  } catch (err) {
-    console.error(err);
-    setError("Error de conexión con el servidor.");
-  } finally {
-    setLoading(false);
-  }
-};
-
+  };
 
   return (
     <LoginLayout>
-      <form
-        onSubmit={handleSubmit}
-        className="bg-white shadow-md rounded-lg px-8 pt-6 pb-8 mb-4 space-y-4 animate-fade-in"
-      >
-        <h1 className="text-2xl font-semibold text-center text-(--color-primary)">
-          Iniciar Sesión
-        </h1>
+      <form onSubmit={handleSubmit} className="bg-white shadow-md rounded-lg p-8 space-y-4">
+        <h1 className="text-2xl font-semibold text-center">Iniciar Sesión</h1>
 
-        {error && (
-          <p className="text-red-500 text-center font-medium">{error}</p>
-        )}
+        {error && <p className="text-red-500 text-center">{error}</p>}
 
         <div>
-          <label className="block text-(--color-primary) mb-2">
-            Correo electrónico
-          </label>
+          <label>Correo electrónico</label>
           <input
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="w-full px-3 py-2 border rounded-md focus:outline-none 
-                       focus:ring-2 focus:ring-(--color-primary)"
-            placeholder="usuario@correo.com"
+            className="w-full px-3 py-2 border rounded-md"
             required
           />
         </div>
 
         <div>
-          <label className="block text-(--color-primary) mb-2">Contraseña</label>
+          <label>Contraseña</label>
           <input
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="w-full px-3 py-2 border rounded-md focus:outline-none 
-                       focus:ring-2 focus:ring-(--color-primary)"
-            placeholder="********"
+            className="w-full px-3 py-2 border rounded-md"
             required
           />
         </div>
@@ -118,8 +75,7 @@ export default function LoginPage() {
         <button
           type="submit"
           disabled={loading}
-          className="w-full bg-(--color-primary) text-white py-2 rounded-md 
-                     hover:bg-(--color-primary-hover) transition disabled:opacity-70"
+          className="w-full bg-blue-600 text-white py-2 rounded-md"
         >
           {loading ? "Cargando..." : "Entrar"}
         </button>
