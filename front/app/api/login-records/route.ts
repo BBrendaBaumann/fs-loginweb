@@ -5,4 +5,4 @@ export async function GET() {
     ok: true,
     message: "login-records endpoint funcionando"
   });
-}
+} //TODO si o si 
