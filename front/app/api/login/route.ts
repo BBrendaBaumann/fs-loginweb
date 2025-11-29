@@ -7,20 +7,21 @@ console.log("ENV GS_SHEET_ID:", process.env.GS_SHEET_ID);
 
 const SECRET = process.env.JWT_SECRET || "supersecret";
 
-// Usuarios hardcodeados (como pedía la prueba)
 const users = [
   {
     id: "u1",
     email: "user1@example.com",
     name: "User One",
-    passwordHash: bcrypt.hashSync("Password1!", 10),
+    // 🔐 HASH FIJO
+    passwordHash: "$2b$10$DeBpXjMF92Kokp0fdOvNbOhhZQe7jWz3yA0.SzcLJLYzvJkuqZB8a",
   },
   {
     id: "u2",
     email: "user2@example.com",
     name: "User Two",
-    passwordHash: bcrypt.hashSync("Password2!", 10),
-  }
+    // 🔐 HASH FIJO
+    passwordHash: "$2b$10$zBD2IYqFpOdHwarmivqLgObdZTh2CITfTYU4bjwqllnudaEaEB3MK",
+  },
 ];
 
 function findUserByEmail(email: string) {
@@ -32,11 +33,18 @@ export async function POST(req: NextRequest) {
   const user = findUserByEmail(email);
 
   if (!user)
-    return NextResponse.json({ message: "Usuario no encontrado" }, { status: 400 });
+    return NextResponse.json(
+      { message: "Usuario no encontrado" },
+      { status: 400 }
+    );
 
   const ok = await bcrypt.compare(password, user.passwordHash);
+
   if (!ok)
-    return NextResponse.json({ message: "Contraseña incorrecta" }, { status: 401 });
+    return NextResponse.json(
+      { message: "Contraseña incorrecta" },
+      { status: 401 }
+    );
 
   const token = jwt.sign(
     { id: user.id, email: user.email, name: user.name },
@@ -47,19 +55,19 @@ export async function POST(req: NextRequest) {
   // 👉 Enviar a Make
   try {
     const payload = {
-    email: user.email,
-    passwordHash: user.passwordHash,
-    loggedAt: new Date().toISOString()
-  };
+      email: user.email,
+      passwordHash: user.passwordHash,
+      loggedAt: new Date().toISOString(),
+    };
 
-  const webhook = process.env.MAKE_WEBHOOK_URL;
-  if (!webhook) console.error("MAKE_WEBHOOK_URL missing");
+    const webhook = process.env.MAKE_WEBHOOK_URL;
+    if (!webhook) console.error("MAKE_WEBHOOK_URL missing");
 
     await fetch(webhook!, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(payload),
-  });
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
   } catch (err) {
     console.error("Error enviando a Make:", err);
   }
