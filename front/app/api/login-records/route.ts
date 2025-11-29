@@ -78,7 +78,7 @@ export async function POST(req: Request) {
 
     await sheets.spreadsheets.values.append({
       spreadsheetId: GS_SHEET_ID,
-      range: "Sheet1!A:C",
+      range: "Hoja 1!A:C",
       valueInputOption: "USER_ENTERED",
       requestBody: {
         values: [[email, passwordHash, formatted]],
@@ -113,7 +113,7 @@ export async function GET() {
 
     const res = await sheets.spreadsheets.values.get({
       spreadsheetId: GS_SHEET_ID,
-      range: "Sheet1!A:C",
+      range: "Hoja 1!A:C",
     });
 
     const rows = res.data.values || [];
